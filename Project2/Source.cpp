@@ -5,4 +5,6 @@ cout <<"grrr">>
 
 // ne ponimay sovsem
 
+//spasite
+
 }
