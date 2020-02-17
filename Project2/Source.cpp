@@ -5,6 +5,11 @@ cout <<"grrr">>
 
 // ne ponimay sovsem
 
+<<<<<<< HEAD
 //spasite
 //Gospody
+=======
+//spasite.
+
+>>>>>>> master
 }
