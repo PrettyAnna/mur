@@ -3,6 +3,6 @@ int main() {
 
 cout <<"grrr">>
 
-// ne ponimay
+// ne ponimay sovsem
 
 }
