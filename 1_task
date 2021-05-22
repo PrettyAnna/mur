@@ -1,0 +1,60 @@
+import numpy as np
+
+T = 18
+L = 20
+h = 0.5
+Ku = [0.6, 1., 1.5]
+t = list()
+for i in range(len(Ku)):
+t.append(Ku[i] * h)
+
+
+def function_t0(x):
+return np.sin(4 * np.pi * x / L)
+
+
+N = int(L / h) + 1
+x = np.linspace(0, L, N)
+
+
+def solve1(Ku, t):
+M = int(T / t) + 1
+
+u = np.zeros((M, N))
+
+u[0] = function_t0(x)
+
+for j in range(M - 1):
+for i in range(1, N):
+u[j + 1, i] = u[j, i] - t * (u[j, i] - u[j, i - 1]) / h
+u[j + 1, 0] = u[j + 1, N - 1]
+
+return u
+
+
+def solve2(Ku, t):
+M = int(T / t) + 1
+
+u = np.zeros((M, N))
+
+u[0] = function_t0(x)
+
+for j in range(M - 1):
+for i in range(1, N - 1):
+u[j + 1, i] = u[j, i] - t * (u[j, i + 1] - u[j, i - 1]) / (2 * h) + \
++ t ** 2 / 2 * (u[j, i + 1] - 2 * u[j, i] + u[j, i - 1]) / h ** 2
+u[j + 1, N - 1] = u[j, N - 1] - t * (u[j, 0] - u[j, N - 2]) / 2 / h + \
++ t ** 2 / 2 * (u[j, 0] - 2 * u[j, N - 1] + u[j, N - 2]) / h ** 2
+u[j + 1, 0] = u[j + 1, N - 1]
+
+return u
+
+
+def print_solve(method, text):
+u = method(Ku[0], t[2])
+
+print(u)
+
+
+print_solve(solve1, 'Схема уголок')
+print_solve(solve2, 'Схема Лакса-Вендрофа')
